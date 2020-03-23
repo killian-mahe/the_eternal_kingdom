@@ -30,6 +30,7 @@ import json
 # Package import
 
 # Module import
+from castle import Castle
 from background import Background
 
 # Load settings
@@ -40,19 +41,23 @@ f.close()
 
 # Global variables
 timeStep = None
-backgrounds = list()
+background = None
+castle = None
 
 
 # Keyboard interactions
 old_settings = termios.tcgetattr(sys.stdin)
 
 def init() :
-    global timeStep, backgrounds, settings
+    global timeStep, background, settings, castle
     
     timeStep = 0.02
 
     # Init backgrounds
-    backgrounds.append(Background(settings['assets_folder'] + "/background_1.txt"))
+    background = Background(settings['assets_folder'] + "/background_1.txt")
+
+    # Init castles
+    castle = Castle(settings['assets_folder'] + "/castle_1.txt", settings['screen_size'])
 
     tty.setcbreak(sys.stdin.fileno())
 
@@ -89,11 +94,14 @@ def isData():
 
 
 def show() :
-    global timeStep, backgrounds
+    global timeStep, background, castle
     #Affichage des différents élément
 
     # Show the background
-    backgrounds[0].show()
+    background.show()
+    sys.stdout.flush()
+
+    castle.show()
 
     # Free the buffered output stream
     sys.stdout.flush()

@@ -15,6 +15,21 @@ class Background:
 
         for line in splitedTxt :
             self.bg.append(list(line))
+
+        pass
+
+    def update(self, file_name):
+        assert type(file_name) is str
+
+        f = open(file_name, "r")
+        txt = f.read()
+        f.close()
+
+        splitedTxt = txt.splitlines()
+        self.bg = list()
+
+        for line in splitedTxt :
+            self.bg.append(list(line))
         pass
 
     def getChar(self, x, y):
