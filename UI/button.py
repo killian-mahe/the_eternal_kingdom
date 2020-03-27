@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 import sys
+from UI.element import Element
 
-class Button:
+class Button(Element):
 
     def __init__(self, position, label, action=None):
-        assert type(position) is tuple
-        assert type(label) is str
-
-        self.x, self.y = position
-        self.label = label
+        super.__init__(position, label)
+        
         self.selected = False
 
         if action:
