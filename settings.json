@@ -1,3 +1,4 @@
 {
-    "assets_folder": "assets"
+    "assets_folder": "assets",
+    "screen_size": [194, 52]
 }
