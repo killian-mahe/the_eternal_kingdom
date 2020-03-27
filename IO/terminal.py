@@ -5,6 +5,8 @@ import termios
 import tty
 
 class Terminal():
+    """A Terminal
+    """
 
     defaultSettings = None
 
@@ -20,6 +22,8 @@ class Terminal():
 
     @staticmethod
     def init():
+        """Init the terminal and set default settings
+        """
         Terminal.defaultSettings = termios.tcgetattr(sys.stdin)
         tty.setcbreak(sys.stdin.fileno())
         sys.stdout.write("\033[2J") # Clear terminal
@@ -29,6 +33,15 @@ class Terminal():
 
     @staticmethod
     def write(c, position, color = None):
+        """Write a character in the Terminal
+        
+        Arguments:
+            c {str} -- The character to display
+            position {tuple(int, int)} -- The position of the cursor
+        
+        Keyword Arguments:
+            color {int} -- The color code (default: {None})
+        """
         assert type(c) is str
         assert type(position) is tuple
 
@@ -42,6 +55,11 @@ class Terminal():
 
     @staticmethod
     def moveCursor(position) :
+        """Move the cursor to the given position
+        
+        Arguments:
+            position {tple(int, int)} -- Positino of the cursor
+        """
         assert type(position) is tuple
 
         x, y = position
@@ -50,6 +68,11 @@ class Terminal():
 
     @staticmethod
     def changeColor(color):
+        """Change the color of the terminal cursor
+        
+        Arguments:
+            color {int} -- The color code
+        """
         assert type(color) is int
         sys.stdout.write("\033["+str(color)+"m")
         pass
@@ -57,6 +80,8 @@ class Terminal():
 
     @staticmethod
     def reset():
+        """Reset terminal to old settings
+        """
         sys.stdout.write("\033[0m")
         sys.stdout.write("\033[2J")
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, Terminal.defaultSettings)

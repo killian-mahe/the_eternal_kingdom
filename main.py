@@ -61,7 +61,7 @@ def init() :
     game = Game(background, castle)
 
     default_menu = menu.Menu(label="default_menu")
-    default_menu.addButton(button.Button((10, 10), "Lancer la partie"))
+    default_menu.addButton(button.Button((10, 10), "Start_game"))
     game.addMenu(default_menu)
 
     game.setMenu("default_menu")
@@ -82,10 +82,10 @@ def interact() :
             if menu.label == "default_menu":
 
                 if Keyboard.isPressed('s'):
-                    menu.buttons[0].select(True)
+                    menu.getElement("Start_game").select(True)
 
                 if Keyboard.isPressed('z'):
-                    menu.buttons[0].select(False)
+                    menu.getElement("Start_game").select(False)
 
                 if Keyboard.isPressed('p'):
                     game.resetMenu()

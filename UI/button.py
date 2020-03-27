@@ -19,7 +19,7 @@ class Button(Element):
         Keyword Arguments:
             action {func} -- Function called when button is selectionned (default: {None})
         """
-        super.__init__(position, label)
+        super().__init__(position, label)
                 
         self.selected = False
 

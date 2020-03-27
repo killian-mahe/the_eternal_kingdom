@@ -23,10 +23,15 @@ class Menu:
         Arguments:
             _elements {UI.element.Element}
         """
-        assert type(_elements) is element.Element
         
         self.elements.append(_elements)
         pass
+
+    def getElement(self, label):
+        for element in self.elements:
+            if element.label == label:
+                return element
+        return None
 
     def show(self):
         """Display elements on the screen
