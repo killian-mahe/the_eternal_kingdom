@@ -15,7 +15,7 @@ __title__ = 'the_eternal_kingdom'
 __author__ = 'Killian Mahé'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2020 Killian Mahé'
-__version__ = '0.0.1'
+__version__ = '0.0.5'
 
 # Standard import
 import sys
@@ -32,6 +32,10 @@ import json
 # Module import
 from castle import Castle
 from background import Background
+from UI import menu, button
+from game import Game
+from IO.terminal import Terminal
+from IO.keyboard import Keyboard
 
 # Load settings
 f = open("settings.json", "r")
@@ -41,17 +45,12 @@ f.close()
 
 # Global variables
 timeStep = None
-background = None
-castle = None
-
-
-# Keyboard interactions
-old_settings = termios.tcgetattr(sys.stdin)
+game = None
 
 def init() :
-    global timeStep, background, settings, castle
+    global timeStep, settings, game
     
-    timeStep = 0.02
+    timeStep = 0.05
 
     # Init backgrounds
     background = Background(settings['assets_folder'] + "/background_1.txt")
@@ -59,21 +58,40 @@ def init() :
     # Init castles
     castle = Castle(settings['assets_folder'] + "/castle_1.txt", settings['screen_size'])
 
-    tty.setcbreak(sys.stdin.fileno())
+    game = Game(background, castle)
 
-    sys.stdout.write("\033[2J")
-    sys.stdout.write("\033[?25l")
-    sys.stdout.write("\033[40m\033[1;34m")
+    default_menu = menu.Menu(label="default_menu")
+    default_menu.addButton(button.Button((10, 10), "Lancer la partie"))
+    game.addMenu(default_menu)
+
+    game.setMenu("default_menu")
+    Terminal.init()
+
     return
 
 
 
 def interact() :
-    global old_settings
+    global game
 
     #gestion des evenement clavier
-    if isData():
-        c = sys.stdin.read(1)
+    if Keyboard.isEvent():
+        
+        menu = game.currentMenu
+        if menu :
+            if menu.label == "default_menu":
+
+                if Keyboard.isPressed('s'):
+                    menu.buttons[0].select(True)
+
+                if Keyboard.isPressed('z'):
+                    menu.buttons[0].select(False)
+
+                if Keyboard.isPressed('p'):
+                    game.resetMenu()
+
+        if Keyboard.isPressed('\033'):
+            quitGame()
 
     return
 		
@@ -86,34 +104,21 @@ def live():
 
 
 
-def isData():
-    #recuperation evenement clavier
-
-    return select.select([sys.stdin], [], [], 0) == ([sys.stdin], [], [])
-
-
-
 def show() :
-    global timeStep, background, castle
+    global timeStep, game
     #Affichage des différents élément
-
+    
     # Show the background
-    background.show()
+    game.show()
     sys.stdout.flush()
-
-    castle.show()
-
-    # Free the buffered output stream
-    sys.stdout.flush()
+    Terminal.moveCursor((0, 0))
     return
 
 
 
 def quitGame():
     #restoration parametres terminal
-    global old_settings
-    #couleur white
-    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
+    Terminal.reset()
     sys.exit()
     return
 
@@ -122,14 +127,26 @@ def quitGame():
 def run():
     global timeStep
     #Boucle de simulation
-    while 1:
+    
+    lastTimeShow = 0
+
+    while (True):
         interact()
         live()
-        show()
-        time.sleep(timeStep)
-    return
+
+        if(time.time()-lastTimeShow > timeStep):
+            show()
+            lastTimeShow = time.time()
+        
+    pass
 
 
-init()
-run()
-quitGame()
+if __name__ == "__main__":
+
+    try :
+        init()
+        run()
+        quitGame()
+    except KeyboardInterrupt:
+        quitGame()
+    pass

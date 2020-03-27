@@ -38,6 +38,9 @@ class Background:
     def setChar(self, x, y, c):
         self.bg[x][y] = c
 
+    def getArray(self):
+        return [self.bg, (0, 0)]
+
     def show(self):
         for y in range(0,len(self.bg)):
             for x in range(0,len(self.bg[y])):

@@ -18,11 +18,11 @@ class Castle:
             self.bg.append(list(line))
 
 
-        self.position = (1, window_size[1] - len(self.bg))
-
-        print(self.position)
-
+        self.position = (2-1, window_size[1] - len(self.bg)-1)
         pass
+
+    def getArray(self):
+        return [self.bg, self.position]
 
 
     def show(self):
