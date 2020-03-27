@@ -15,9 +15,9 @@ __title__ = 'the_eternal_kingdom'
 __author__ = 'Killian Mahé'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2020 Killian Mahé'
-__version__ = '0.0.5'
+__version__ = '0.0.6'
 
-# Standard import
+# Standard Imports
 import sys
 import os
 import time
@@ -27,44 +27,48 @@ import termios
 import random
 import json
 
-# Package import
-
-# Module import
-from castle import Castle
-from background import Background
-from UI import menu, button
-from game import Game
+# Module Imports
 from IO.terminal import Terminal
 from IO.keyboard import Keyboard
+from UI import menu, button
 
-# Load settings
+# Internal Imports
+from background import Background
+from castle import Castle
+from game import Game
+
+# Load Settings
 f = open("settings.json", "r")
 settings = json.load(f)
 f.close()
-
 
 # Global variables
 timeStep = None
 game = None
 
 def init() :
+    """Initialize the game configuration
+    """
     global timeStep, settings, game
     
     timeStep = 0.05
 
-    # Init backgrounds
     background = Background(settings['assets_folder'] + "/background_1.txt")
 
-    # Init castles
     castle = Castle(settings['assets_folder'] + "/castle_1.txt", settings['screen_size'])
 
     game = Game(background, castle)
 
-    default_menu = menu.Menu(label="default_menu")
-    default_menu.addButton(button.Button((10, 10), "Start_game"))
-    game.addMenu(default_menu)
+    # Setting up home_screen menu
+    home_screen = menu.Menu("home_screen", Background(settings['assets_folder'] + "/menu_1.txt"))
+    home_screen.addButton(button.Button((94, 18), "start", "Lancer une partie", alignement="center"))
+    home_screen.addButton(button.Button((94, 20), "exit", "Quitter", alignement="center"))
+    game.addMenu(home_screen)
+    
 
-    game.setMenu("default_menu")
+    game.setMenu("home_screen")
+    game.currentMenu.selectButton("start")
+
     Terminal.init()
 
     return
@@ -72,25 +76,22 @@ def init() :
 
 
 def interact() :
+    """Interaction with the player
+    """
     global game
-
-    #gestion des evenement clavier
     if Keyboard.isEvent():
-        
+
         menu = game.currentMenu
-        if menu :
-            if menu.label == "default_menu":
+        if menu : # In a menu
 
-                if Keyboard.isPressed('s'):
-                    menu.getElement("Start_game").select(True)
+            if menu.label == "home_screen" :
 
-                if Keyboard.isPressed('z'):
-                    menu.getElement("Start_game").select(False)
-
-                if Keyboard.isPressed('p'):
-                    game.resetMenu()
-
-        if Keyboard.isPressed('\033'):
+                if Keyboard.isPressed('z') :
+                    menu.selectButton("start")
+                if Keyboard.isPressed('s') :
+                    menu.selectButton("exit")
+        
+        if Keyboard.isPressed('\033'): # ESC
             quitGame()
 
     return
@@ -105,10 +106,10 @@ def live():
 
 
 def show() :
-    global timeStep, game
-    #Affichage des différents élément
+    """Manage the screen
+    """
+    global timeStep, Game
     
-    # Show the background
     game.show()
     sys.stdout.flush()
     Terminal.moveCursor((0, 0))
@@ -117,7 +118,9 @@ def show() :
 
 
 def quitGame():
-    #restoration parametres terminal
+    """Manage how the game quit
+    """
+    
     Terminal.reset()
     sys.exit()
     return
@@ -126,8 +129,7 @@ def quitGame():
 
 def run():
     global timeStep
-    #Boucle de simulation
-    
+
     lastTimeShow = 0
 
     while (True):

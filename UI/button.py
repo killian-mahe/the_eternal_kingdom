@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 from UI.element import Element
+from IO.terminal import Terminal
 
 class Button(Element):
     """A usable Button for user interface
@@ -9,7 +10,7 @@ class Button(Element):
         Element {UI.element.Element} -- An Element
     """
 
-    def __init__(self, position, label, action=None):
+    def __init__(self, position, label, name="", alignement="left"):
         """Create an instance of Button
         
         Arguments:
@@ -17,14 +18,14 @@ class Button(Element):
             label {str} -- Unique label of the button
         
         Keyword Arguments:
-            action {func} -- Function called when button is selectionned (default: {None})
+            name {str} -- A string that will be displayed
+            alignement {str} -- (Left|Center|Right) Alignement of the button compared to the position (default: {Left})
         """
         super().__init__(position, label)
                 
         self.selected = False
-
-        if action:
-            self.action = action
+        self.name = name
+        self.alignement = alignement
         
         pass
 
@@ -41,16 +42,21 @@ class Button(Element):
     def show(self):
         """Display the button on the screen
         """
-
-        s="\033["+str(self.y+1)+";"+str(self.x+1)+"H"
-        sys.stdout.write(s)
+        if self.alignement == "right":
+            Terminal.moveCursor((self.x + 1 - len(self.name), self.y + 1))
+        
+        elif self.alignement == "center":
+            Terminal.moveCursor((self.x + 1 - round((len(self.name)/2)), self.y + 1))
+            
+        else : 
+            Terminal.moveCursor((self.x + 1, self.y + 1))
 
         if self.selected :
-            sys.stdout.write("\033["+str(33)+"m") # Change color to yellow
+            Terminal.changeColor(Terminal.YELLOW)
             
         else :
-            sys.stdout.write("\033["+str(37)+"m") # Reset color to white
+            Terminal.changeColor(Terminal.WHITE)
 
-        sys.stdout.write(str(self.label))
+        Terminal.write(str(self.name))
 
     pass

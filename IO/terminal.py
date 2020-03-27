@@ -32,21 +32,22 @@ class Terminal():
         pass
 
     @staticmethod
-    def write(c, position, color = None):
+    def write(c, position=None, color = None):
         """Write a character in the Terminal
         
         Arguments:
             c {str} -- The character to display
-            position {tuple(int, int)} -- The position of the cursor
         
         Keyword Arguments:
+            position {tuple(int, int)} -- The position of the cursor (default: {None})
             color {int} -- The color code (default: {None})
         """
         assert type(c) is str
-        assert type(position) is tuple
 
-        x, y = position
-        sys.stdout.write("\033["+str(y+1)+";"+str(x+1)+"H")
+        if position :
+            assert type(position) is tuple
+            x, y = position
+            sys.stdout.write("\033["+str(y+1)+";"+str(x+1)+"H")
         if color :
             assert type(color) is int
             sys.stdout.write("\033["+str(color)+"m")
