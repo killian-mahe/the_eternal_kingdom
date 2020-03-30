@@ -1,21 +1,23 @@
 # -*- coding: utf-8 -*-
 
 """
-IO
+Utils
 ~~~~~~~~~~~~~~~~~~~
 
-A Python module for Input and Ouput interactions
+A Python collection of useful class and functions
 
 :copyright: (c) 2020 Killian Mahé
 :license: MIT, see LICENSE for more details.
 
 """
 
-__title__ = 'io'
+__title__ = 'characters'
 __author__ = 'Killian Mahé'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2020 Killian Mahé'
 __version__ = '0.0.1'
 
-from .terminal import Terminal
-from .keyboard import Keyboard
+from .background import Background
+from .castle import Castle
+from .ball import Ball
+from .cannon import Cannon

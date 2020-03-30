@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
+from IO import Terminal
 
 class Background:
 
@@ -44,10 +45,9 @@ class Background:
     def show(self):
         for y in range(0,len(self.bg)):
             for x in range(0,len(self.bg[y])):
-                s="\033["+str(y+1)+";"+str(x+1)+"H"
-                sys.stdout.write("\033["+str(37)+"m")
-                sys.stdout.write(s)
+                Terminal.moveCursor([x, y])
+                Terminal.changeColor(Terminal.WHITE)
                 
                 # Display
-                sys.stdout.write(self.bg[y][x])
+                Terminal.write(self.bg[y][x])
     pass

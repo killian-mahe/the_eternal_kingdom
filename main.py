@@ -15,7 +15,7 @@ __title__ = 'the_eternal_kingdom'
 __author__ = 'Killian Mahé'
 __license__ = 'MIT'
 __copyright__ = 'Copyright 2020 Killian Mahé'
-__version__ = '0.0.6'
+__version__ = '0.0.7'
 
 # Standard Imports
 import sys
@@ -28,13 +28,11 @@ import random
 import json
 
 # Module Imports
-from IO.terminal import Terminal
-from IO.keyboard import Keyboard
-from UI import menu, button
+from IO import Terminal, Keyboard
+from UI import Menu, Button
+from characters import Background, Castle, Cannon, Ball
 
 # Internal Imports
-from background import Background
-from castle import Castle
 from game import Game
 
 # Load Settings
@@ -57,14 +55,17 @@ def init() :
 
     castle = Castle(settings['assets_folder'] + "/castle_1.txt", settings['screen_size'])
 
-    game = Game(background, castle)
+    cannon = Cannon([21, 28])
+
+    game = Game(settings, background, castle, cannon)
 
     # Setting up home_screen menu
-    home_screen = menu.Menu("home_screen", Background(settings['assets_folder'] + "/menu_1.txt"))
-    home_screen.addButton(button.Button((94, 18), "start", "Lancer une partie", alignement="center"))
-    home_screen.addButton(button.Button((94, 20), "exit", "Quitter", alignement="center"))
+    home_screen = Menu("home_screen", [Background(settings['assets_folder'] + "/menu_1.txt"), castle])
+    home_screen.addButton(Button([94, 18], "start", "Lancer une partie", alignement="center"))
+    home_screen.addButton(Button([94, 20], "exit", "Quitter", alignement="center"))
     game.addMenu(home_screen)
-    
+
+
 
     game.setMenu("home_screen")
     game.currentMenu.selectButton("start")
@@ -83,46 +84,62 @@ def interact() :
 
         menu = game.currentMenu
         if menu : # In a menu
-
-            if menu.label == "home_screen" :
-
+            if menu.label == "home_screen":
                 if Keyboard.isPressed('z') :
                     menu.selectButton("start")
                 if Keyboard.isPressed('s') :
                     menu.selectButton("exit")
+                if Keyboard.isPressed('\n'):
+                    if menu.getElement("start").selected :
+                        game.resetMenu()
+                    elif menu.getElement("exit").selected :
+                        game.quitGame()
+        
+        else :
+            if Keyboard.isPressed('\n'):
+                game.shootCannon()
+
+            if Keyboard.isPressed('z'):
+                game.cannon.angle = min(game.cannon.angle + 5, 90)
+
+            if Keyboard.isPressed('s'):
+                game.cannon.angle = max(game.cannon.angle - 5, 0)
+
+            if Keyboard.isPressed('q'):
+                game.cannon.force = max(game.cannon.force - 5, 5)
+
+            if Keyboard.isPressed('d'):
+                game.cannon.force = min(game.cannon.force + 5, 50)
         
         if Keyboard.isPressed('\033'): # ESC
-            quitGame()
+            game.quitGame()
 
     return
 		
 
 
 def live():
-    global timeStep
+    global timeStep, game
+
+    game.live()
 
     return
 
+def quitGame():
+    global game
+    game.quitGame()
+    pass
 
 
 def show() :
     """Manage the screen
     """
-    global timeStep, Game
-    
+    global timeStep, game
+
     game.show()
+
     sys.stdout.flush()
-    Terminal.moveCursor((0, 0))
-    return
-
-
-
-def quitGame():
-    """Manage how the game quit
-    """
-    
-    Terminal.reset()
-    sys.exit()
+    Terminal.moveCursor([0, 0])
     return
 
 

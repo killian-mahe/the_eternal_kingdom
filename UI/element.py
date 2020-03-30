@@ -14,7 +14,7 @@ class Element:
             position {tuple(int, int)} -- The position of the Element in the interface
             label {str} -- Unique label of Element
         """
-        assert type(position) is tuple
+        assert type(position) is list
         assert type(label) is str
 
         self.x, self.y = position

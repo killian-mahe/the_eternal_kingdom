@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
+from IO import Terminal
 
 class Castle:
 
@@ -29,15 +30,14 @@ class Castle:
         
         for y in range(0,len(self.bg)):
             for x in range(0,len(self.bg[y])):
-                s="\033["+str(y+1+self.position[1])+";"+str(x+1+self.position[0])+"H"
 
                 # Display in white
-                sys.stdout.write("\033["+str(37)+"m")
+                Terminal.changeColor(Terminal.WHITE)
 
                 # Change cursor position
-                sys.stdout.write(s)
+                Terminal.moveCursor([x + self.position[0], y + self.position[1]])
                 
                 # Display
-                sys.stdout.write(self.bg[y][x])
+                Terminal.write(self.bg[y][x])
 
     pass

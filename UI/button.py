@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 from UI.element import Element
-from IO.terminal import Terminal
+from IO import Terminal
 
 class Button(Element):
     """A usable Button for user interface
@@ -43,13 +43,13 @@ class Button(Element):
         """Display the button on the screen
         """
         if self.alignement == "right":
-            Terminal.moveCursor((self.x + 1 - len(self.name), self.y + 1))
+            Terminal.moveCursor([self.x + 1 - len(self.name), self.y + 1])
         
         elif self.alignement == "center":
-            Terminal.moveCursor((self.x + 1 - round((len(self.name)/2)), self.y + 1))
+            Terminal.moveCursor([self.x + 1 - round((len(self.name)/2)), self.y + 1])
             
         else : 
-            Terminal.moveCursor((self.x + 1, self.y + 1))
+            Terminal.moveCursor([self.x + 1, self.y + 1])
 
         if self.selected :
             Terminal.changeColor(Terminal.YELLOW)

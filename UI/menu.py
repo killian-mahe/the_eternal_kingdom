@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 from UI import element
 from UI import button
-import background
+from IO import Keyboard
+from characters import Background
 import sys
 
 class Menu:
     """A user interface
     """
 
-    def __init__(self, label="", background = None, _elements = []):
+    def __init__(self, label="", background = [], _elements = []):
         """Create an instance of Menu
         
         Keyword Arguments:
-            background {background.Background} -- The background
+            background {background.Background} -- The background (default: {[]})
             label {str} -- A unique label (default: {""})
             _elements {list} -- List of elements (default: {[]})
         """
@@ -62,7 +63,8 @@ class Menu:
         """Display elements on the screen
         """
         if self.background :
-            self.background.show()
+            for background in self.background :
+                background.show()
             
         for element in self.elements:
             element.show()

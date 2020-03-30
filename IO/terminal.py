@@ -42,16 +42,22 @@ class Terminal():
             position {tuple(int, int)} -- The position of the cursor (default: {None})
             color {int} -- The color code (default: {None})
         """
-        assert type(c) is str
 
         if position :
-            assert type(position) is tuple
+            assert type(position) is list
             x, y = position
             sys.stdout.write("\033["+str(y+1)+";"+str(x+1)+"H")
         if color :
             assert type(color) is int
             sys.stdout.write("\033["+str(color)+"m")
-        sys.stdout.write(c)
+        sys.stdout.write(str(c))
+        pass
+
+    @staticmethod
+    def clear():
+        """Clear terminal
+        """
+        sys.stdout.write("\033[2J")
         pass
 
     @staticmethod
@@ -61,7 +67,7 @@ class Terminal():
         Arguments:
             position {tple(int, int)} -- Positino of the cursor
         """
-        assert type(position) is tuple
+        assert type(position) is list
 
         x, y = position
         sys.stdout.write("\033["+str(y+1)+";"+str(x+1)+"H")
