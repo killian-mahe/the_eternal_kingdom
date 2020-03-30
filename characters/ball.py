@@ -31,6 +31,8 @@ class Ball(object):
 
         self.position = copy.copy(self.initPosition)
 
+        self.power = 1
+        
         pass
 
     def live(self):

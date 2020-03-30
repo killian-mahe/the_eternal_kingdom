@@ -43,6 +43,41 @@ class Monster:
 
         pass
 
+    def isInCollision(self, ePosition):
+        """Check if position is in collision with the monster
+        
+        Arguments:
+            ePosition {list} -- Coordinates to check
+        
+        Returns:
+            bool
+        """
+        assert type(ePosition) is list
+
+        if ePosition[0] > self.position[0] and ePosition[0] < (self.position[0] + len(self.model[0])) :
+            if ePosition[1] > self.position[1] and ePosition[1] < (self.position[1] + len(self.model)) :
+                return True
+        
+        return False
+
+    def getDamages(self, damages):
+        """Get damages and return if the monster is dead or not
+        
+        Arguments:
+            damages {int} -- Damages the monster receive
+        
+        Returns:
+            bool -- Wether monster is dead or not
+        """
+        assert type(damages) is int
+
+        self.life -= damages
+
+        if self.life <= 0:
+            return True
+
+        return False
+
     def live(self):
         """Live
         

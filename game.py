@@ -116,6 +116,11 @@ class Game:
         # Live Monsters
         for monster in self.monsters:
             monster.live()
+            for ball in self.balls :
+                if monster.isInCollision(ball.position):
+                    if monster.getDamages(ball.power):
+                        self.monsters.remove(monster)
+                    self.balls.remove(ball)
         
         pass
 
