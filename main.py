@@ -27,12 +27,12 @@ import termios
 import random
 import json
 
-# Module Imports
+# Package Imports
 from IO import Terminal, Keyboard
 from UI import Menu, Button
-from characters import Background, Castle, Cannon, Ball
 
 # Internal Imports
+from characters import Background, Castle, Cannon, Ball
 from game import Game
 
 # Load Settings
@@ -119,6 +119,8 @@ def interact() :
 
 
 def live():
+    """Live loop
+    """
     global timeStep, game
 
     game.live()
@@ -126,6 +128,8 @@ def live():
     return
 
 def quitGame():
+    """Manage how the game end
+    """
     global game
     game.quitGame()
     pass
@@ -145,6 +149,8 @@ def show() :
 
 
 def run():
+    """Simulation loop
+    """
     global timeStep
 
     lastTimeShow = 0

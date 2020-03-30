@@ -1,13 +1,28 @@
 # -*- coding: utf-8 -*-
+
+# Standard imports
 import sys
-from characters import Castle, Background, Cannon
-import screen
-from UI.menu import Menu
+import random
+import time
+
+# Package imports
+from UI import Menu
 from IO import Terminal
+
+# Internal imports
+from characters import Castle, Background, Cannon, Zombie
 
 class Game:
 
     def __init__(self, settings, _background, _castle, cannon):
+        """Create a Game instance
+        
+        Arguments:
+            settings {list} -- List of settings
+            _background {Background} -- Background to display during the game
+            _castle {Castle} -- Castle to display during the game
+            cannon {Cannon} -- Cannon to display during the game
+        """
         assert type(settings) is dict
         assert type(_background) is Background
         assert type(_castle) is Castle
@@ -17,7 +32,11 @@ class Game:
         self.castle = _castle
         self.cannon = cannon
         self.menus = None
+        self.monsters = []
         self.balls = []
+
+        self.lastTimeSpawnMonster = 0
+        self.spawnerFrequency = 0.5 # Monster/sec
 
         self.settings = settings
 
@@ -26,6 +45,11 @@ class Game:
         pass
 
     def addMenu(self, menus):
+        """Add a menu to the list
+        
+        Arguments:
+            menus {Menu} -- Menu to add
+        """
         assert (type(menus) is list) or (type(menus) is Menu)
 
         if type(menus) is list :
@@ -33,19 +57,32 @@ class Game:
                 self.menus[menu.label] = menu
         else :
             self.menus = {str(menus.label): menus}
+
         pass
 
     def setMenu(self, label):
+        """Change the menu to current labelled menu
+        
+        Arguments:
+            label {str} -- Label of the menu
+        """
         assert type(label) is str
         
         self.currentMenu = self.menus[label]
+
         pass
 
     def resetMenu(self):
+        """Reset the menu to None
+        """
+
         self.currentMenu = None
+        
         pass
 
     def shootCannon(self):
+        """Let the cannon shoot balls
+        """
 
         if len(self.balls) < 10 :
             self.balls.append(self.cannon.shoot())
@@ -53,8 +90,12 @@ class Game:
         pass
 
     def live(self):
+        """Make elements live
+        """
+
         screen_size = self.settings['screen_size']
 
+        # Live Balls
         for ball in self.balls:
             ball.live()
 
@@ -64,9 +105,21 @@ class Game:
             if ball.position[1] > (screen_size[1]-1):
                 self.balls.remove(ball)
                 continue
+
+        # Spawn Zombie
+        if time.time() - self.lastTimeSpawnMonster > 1/self.spawnerFrequency :
+            self.monsters.append(Zombie(self.settings['assets_folder']+"/monster_1.txt", [screen_size[0]-3, screen_size[1] - random.randint(1, 6)]))
+            self.lastTimeSpawnMonster = time.time()
+
+        # Live Monsters
+        for monster in self.monsters:
+            monster.live()
+        
         pass
 
     def show(self):
+        """Display on the scrren
+        """
 
         if self.currentMenu != None:
             self.currentMenu.show()
@@ -76,13 +129,19 @@ class Game:
             for ball in self.balls:
                 if ball.position[1] > 0:
                     ball.show()
-        pass
 
-    pass
+            for monster in self.monsters:
+                monster.show()
+
+        pass
 
     def quitGame(self):
         """Manage how the game quit
         """
+
         Terminal.reset()
         sys.exit()
+        
         pass
+
+    pass

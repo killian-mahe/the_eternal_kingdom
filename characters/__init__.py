@@ -21,3 +21,5 @@ from .background import Background
 from .castle import Castle
 from .ball import Ball
 from .cannon import Cannon
+from .monster import Monster
+from .zombie import Zombie
