@@ -11,14 +11,17 @@ from characters import Monster
 
 class Zombie(Monster):
 
-    def __init__(self, monster_model_file, position):
+    def __init__(self, monster_model_file, position, life=1):
         """Create an instance of Zombie
         
         Arguments:
             monster_model_file {str} -- Where the zombie modele file is stored
             position {list} -- 2D position
+
+        Keyword Arguments:
+            life {int} -- Monster life (default: {1})
         """
-        super(Zombie, self).__init__(monster_model_file, position)
+        super(Zombie, self).__init__(monster_model_file, position, life)
 
         pass
 
@@ -30,20 +33,6 @@ class Zombie(Monster):
             self.position[0] -= 1
             self.lastTimeMove = time.time()
 
-        pass
-
-    def show(self):
-        """Display on the screen
-        """
-
-        for y in range(0,len(self.model)):
-            for x in range(0,len(self.model[y])):
-                Terminal.moveCursor([self.position[0] + x, self.position[1] + y - len(self.model)])
-                Terminal.changeColor(Terminal.WHITE)
-                
-                # Display
-                Terminal.write(self.model[y][x])
-        
         pass
 
     pass

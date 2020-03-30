@@ -108,7 +108,9 @@ class Game:
 
         # Spawn Zombie
         if time.time() - self.lastTimeSpawnMonster > 1/self.spawnerFrequency :
-            self.monsters.append(Zombie(self.settings['assets_folder']+"/monster_1.txt", [screen_size[0]-3, screen_size[1] - random.randint(1, 6)]))
+            zombie = Zombie(self.settings['assets_folder']+"/monster_1.txt", 
+                            [screen_size[0]-3, screen_size[1] - random.randint(1, 6)], random.randint(1, 3))
+            self.monsters.append(zombie)
             self.lastTimeSpawnMonster = time.time()
 
         # Live Monsters
