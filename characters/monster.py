@@ -54,8 +54,8 @@ class Monster:
         """
         assert type(ePosition) is list
 
-        if ePosition[0] > self.position[0] and ePosition[0] < (self.position[0] + len(self.model[0])) :
-            if ePosition[1] > self.position[1] and ePosition[1] < (self.position[1] + len(self.model)) :
+        if ePosition[0] >= self.position[0] and ePosition[0] < (self.position[0] + len(self.model[0])) :
+            if ePosition[1] >= self.position[1] and ePosition[1] < (self.position[1] + len(self.model)) :
                 return True
         
         return False
