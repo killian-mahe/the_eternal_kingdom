@@ -91,11 +91,12 @@ class Monster:
         """
         for y in range(0,len(self.model)):
             for x in range(0,len(self.model[y])):
-                Terminal.moveCursor([self.position[0] + x, self.position[1] + y])
-                Terminal.changeColor(Terminal.WHITE)
-                
-                # Display
-                Terminal.write(self.model[y][x])
+                if self.model[y][x] != " ":
+                    Terminal.moveCursor([self.position[0] + x, self.position[1] + y])
+                    Terminal.changeColor(Terminal.WHITE)
+                    
+                    # Display
+                    Terminal.write(self.model[y][x])
 
         Terminal.write("[" + str(self.life) + "]", [self.position[0], self.position[1]-1], Terminal.BLUE)
             
