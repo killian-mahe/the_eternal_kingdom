@@ -9,17 +9,19 @@ class Menu:
     """A user interface
     """
 
-    def __init__(self, label="", background = [], _elements = []):
+    def __init__(self, label="", background = [], _elements = [], position=[0, 0]):
         """Create an instance of Menu
         
         Keyword Arguments:
             background {background.Background} -- The background (default: {[]})
             label {str} -- A unique label (default: {""})
             _elements {list} -- List of elements (default: {[]})
+            position {list} -- left-up menu position (default: {[0, 0]})
         """
         self.elements = _elements
         self.label = label
         self.background = background
+        self.position = position
         pass
 
     def addButton(self, _elements):
@@ -28,7 +30,8 @@ class Menu:
         Arguments:
             _elements {UI.element.Element}
         """
-        
+        _elements.x += self.position[0]
+        _elements.y += self.position[1]
         self.elements.append(_elements)
         pass
 
