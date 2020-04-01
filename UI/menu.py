@@ -1,24 +1,23 @@
 # -*- coding: utf-8 -*-
-from UI import element
-from UI import button
+from UI import Button
 from IO import Keyboard
 from characters import Background
+import copy
 import sys
 
 class Menu:
     """A user interface
     """
 
-    def __init__(self, label="", background = [], _elements = [], position=[0, 0]):
+    def __init__(self, label="", background = [], position=[0, 0]):
         """Create an instance of Menu
         
         Keyword Arguments:
             background {background.Background} -- The background (default: {[]})
             label {str} -- A unique label (default: {""})
-            _elements {list} -- List of elements (default: {[]})
             position {list} -- left-up menu position (default: {[0, 0]})
         """
-        self.elements = _elements
+        self.elements = []
         self.label = label
         self.background = background
         self.position = position
@@ -44,9 +43,9 @@ class Menu:
         Returns:
             element.Element -- The element searched or None
         """
-        for element in self.elements:
-            if element.label == label:
-                return element
+        for _element in self.elements:
+            if _element.label == label:
+                return _element
         return None
 
     def selectButton(self, label):
@@ -55,19 +54,19 @@ class Menu:
         Arguments:
             label {str} -- The label of the button to select
         """
-        for element in self.elements:
-            if type(element) is button.Button:
-                if element.label == label :
-                    element.select(True)
+        for _element in self.elements:
+            if type(_element) is Button:
+                if _element.label == label :
+                    _element.select(True)
                 else :
-                    element.select(False)
+                    _element.select(False)
 
     def show(self):
         """Display elements on the screen
         """
         if self.background :
             for background in self.background :
-                background.show()
+                background.show(self.position)
             
-        for element in self.elements:
-            element.show()
+        for _element in self.elements:
+            _element.show()

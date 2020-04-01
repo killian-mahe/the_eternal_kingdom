@@ -82,12 +82,12 @@ class Background:
         """
         return [self.bg, (0, 0)]
 
-    def show(self):
+    def show(self, offset=[0, 0]):
         """Display on the screen
         """
         for y in range(0,len(self.bg)):
             for x in range(0,len(self.bg[y])):
-                Terminal.moveCursor([x, y])
+                Terminal.moveCursor([offset[0]+x, offset[1]+y])
                 Terminal.changeColor(Terminal.WHITE)
                 
                 # Display

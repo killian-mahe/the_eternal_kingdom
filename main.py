@@ -51,6 +51,8 @@ def init() :
     
     timeStep = 0.05
 
+    Terminal.init()
+
     background = Background(settings['assets_folder'] + "/background_1.txt")
 
     castle = Castle(settings['assets_folder'] + "/castle_1.txt", settings['screen_size'])
@@ -63,15 +65,19 @@ def init() :
     home_screen = Menu("home_screen", [Background(settings['assets_folder'] + "/menu_1.txt"), castle])
     home_screen.addButton(Button([94, 18], "start", "Lancer une partie", alignement="center"))
     home_screen.addButton(Button([94, 20], "exit", "Quitter", alignement="center"))
-    game.addMenu(home_screen)
+    
+    # Setting up pause_menu
+    pause_menu = Menu("pause_menu", [Background(settings['assets_folder'] + "/pause_menu.txt")], position=[83, 19])
+    pause_menu.addButton(Button([14, 2], "continu", "Continuer", alignement="center"))
+    pause_menu.addButton(Button([15, 5], "quit", "Quitter", alignement="center"))
 
-
+    game.addMenu([home_screen, pause_menu])
 
     game.setMenu("home_screen")
     game.currentMenu.selectButton("start")
 
-    Terminal.init()
 
+    sys.stdout.flush()
     return
 
 
@@ -94,6 +100,17 @@ def interact() :
                         game.resetMenu()
                     elif menu.getElement("exit").selected :
                         game.quitGame()
+
+            if menu.label == "pause_menu":
+                if Keyboard.isPressed('z') :
+                    menu.selectButton("continu")
+                if Keyboard.isPressed('s') :
+                    menu.selectButton("quit")
+                if Keyboard.isPressed('\n'):
+                    if menu.getElement("continu").selected :
+                        game.resetMenu()
+                    elif menu.getElement("quit").selected :
+                        game.quitGame()
         
         else :
             if Keyboard.isPressed('\n'):
@@ -111,8 +128,9 @@ def interact() :
             if Keyboard.isPressed('d'):
                 game.cannon.force = min(game.cannon.force + 5, 50)
         
-        if Keyboard.isPressed('\033'): # ESC
-            game.quitGame()
+            if Keyboard.isPressed('\033'): # ESC
+                game.setMenu("pause_menu")
+                game.currentMenu.selectButton("continu")
 
     return
 		
@@ -141,7 +159,7 @@ def show() :
     global timeStep, game
 
     game.show()
-
+    
     sys.stdout.flush()
     Terminal.moveCursor([0, 0])
     return

@@ -21,7 +21,7 @@ class Button(Element):
             name {str} -- A string that will be displayed
             alignement {str} -- (Left|Center|Right) Alignement of the button compared to the position (default: {Left})
         """
-        super().__init__(position, label)
+        super(Button, self).__init__(position, label)
                 
         self.selected = False
         self.name = name
@@ -46,10 +46,10 @@ class Button(Element):
             Terminal.moveCursor([self.x + 1 - len(self.name), self.y + 1])
         
         elif self.alignement == "center":
-            Terminal.moveCursor([self.x + 1 - round((len(self.name)/2)), self.y + 1])
+            Terminal.moveCursor([self.x - round((len(self.name)/2)), self.y + 1])
             
         else : 
-            Terminal.moveCursor([self.x + 1, self.y + 1])
+            Terminal.moveCursor([self.x , self.y + 1])
 
         if self.selected :
             Terminal.changeColor(Terminal.YELLOW)

@@ -31,7 +31,7 @@ class Game:
         self.background = _background
         self.castle = _castle
         self.cannon = cannon
-        self.menus = None
+        self.menus = {}
         self.monsters = []
         self.balls = []
 
@@ -56,7 +56,7 @@ class Game:
             for menu in menus:
                 self.menus[menu.label] = menu
         else :
-            self.menus = {str(menus.label): menus}
+            self.menus[menus.label] = menus
 
         pass
 
@@ -92,6 +92,9 @@ class Game:
     def live(self):
         """Make elements live
         """
+
+        if self.currentMenu != None:
+            return
 
         screen_size = self.settings['screen_size']
 

@@ -43,7 +43,7 @@ class Castle:
         return [self.bg, self.position]
 
 
-    def show(self):
+    def show(self, offset=[0, 0]):
         """Display on the screen
         """
         for y in range(0,len(self.bg)):
