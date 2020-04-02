@@ -4,7 +4,7 @@
 import sys
 
 # Package imports
-from IO import Terminal
+from IO import Terminal, File
 
 class Castle:
 
@@ -18,16 +18,8 @@ class Castle:
         assert type(file_name) is str
         assert type(window_size) is list
 
-        # Read the file
-        f = open(file_name, "r")
-        txt = f.read()
-        f.close()
-
-        # Transform string into list of lists
-        splitedTxt = txt.splitlines()
-        self.bg = list()
-        for line in splitedTxt :
-            self.bg.append(list(line))
+        # Get background
+        self.bg = File.readAsArray(file_name)
 
         # Change the position of the Castle
         self.position = (2-1, window_size[1] - len(self.bg)-1)

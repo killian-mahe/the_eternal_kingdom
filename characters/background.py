@@ -4,7 +4,7 @@
 import sys
 
 # Package imports
-from IO import Terminal
+from IO import Terminal, File
 
 class Background:
 
@@ -17,15 +17,7 @@ class Background:
         assert type(file_name) is str
 
         # Read the file
-        f = open(file_name, "r")
-        txt = f.read()
-        f.close()
-
-        # Transfom string into list of lists
-        splitedTxt = txt.splitlines()
-        self.bg = list()
-        for line in splitedTxt :
-            self.bg.append(list(line))
+        self.bg = File.readAsArray(file_name)
 
         pass
 
@@ -38,15 +30,7 @@ class Background:
         assert type(file_name) is str
 
         # Read the file
-        f = open(file_name, "r")
-        txt = f.read()
-        f.close()
-
-        # Transform string into list of lists
-        splitedTxt = txt.splitlines()
-        self.bg = list()
-        for line in splitedTxt :
-            self.bg.append(list(line))
+        self.bg = File.readAsArray(file_name)
 
         pass
 
