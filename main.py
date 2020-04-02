@@ -74,7 +74,7 @@ def init() :
     game.add_menu([home_screen, pause_menu])
 
     game.set_menu("home_screen")
-    game.current_menu.selectButton("start")
+    game.current_menu.select_button("start")
 
 
     sys.stdout.flush()
@@ -92,9 +92,9 @@ def interact() :
         if menu : # In a menu
             if menu.label == "home_screen":
                 if Keyboard.is_pressed('z') :
-                    menu.selectButton("start")
+                    menu.select_button("start")
                 if Keyboard.is_pressed('s') :
-                    menu.selectButton("exit")
+                    menu.select_button("exit")
                 if Keyboard.is_pressed('\n'):
                     if menu.get_element("start").selected :
                         game.reset_menu()
@@ -103,9 +103,9 @@ def interact() :
 
             if menu.label == "pause_menu":
                 if Keyboard.is_pressed('z') :
-                    menu.selectButton("continu")
+                    menu.select_button("continu")
                 if Keyboard.is_pressed('s') :
-                    menu.selectButton("quit")
+                    menu.select_button("quit")
                 if Keyboard.is_pressed('\n'):
                     if menu.get_element("continu").selected :
                         game.reset_menu()
@@ -130,7 +130,7 @@ def interact() :
         
             if Keyboard.is_pressed('\033'): # ESC
                 game.set_menu("pause_menu")
-                game.current_menu.selectButton("continu")
+                game.current_menu.select_button("continu")
 
     return
 		

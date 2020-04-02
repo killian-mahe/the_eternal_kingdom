@@ -8,7 +8,7 @@ class Terminal:
     """A Terminal
     """
 
-    defaultSettings = None
+    default_settings = None
 
     # Color constants
     WHITE = 37
@@ -90,7 +90,7 @@ class Terminal:
         """
         sys.stdout.write("\033[0m")
         sys.stdout.write("\033[2J")
-        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, Terminal.defaultSettings)
+        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, Terminal.default_settings)
         sys.stdout.write("\033[?25h")
         pass
     pass
