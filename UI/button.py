@@ -43,19 +43,19 @@ class Button(Element):
         """Display the button on the screen
         """
         if self.alignement == "right":
-            Terminal.moveCursor([self.x + 1 - len(self.name), self.y + 1])
+            Terminal.move_cursor([self.x + 1 - len(self.name), self.y + 1])
         
         elif self.alignement == "center":
-            Terminal.moveCursor([self.x - round((len(self.name)/2)), self.y + 1])
+            Terminal.move_cursor([self.x - round((len(self.name)/2)), self.y + 1])
             
         else : 
-            Terminal.moveCursor([self.x , self.y + 1])
+            Terminal.move_cursor([self.x , self.y + 1])
 
         if self.selected :
-            Terminal.changeColor(Terminal.YELLOW)
+            Terminal.change_color(Terminal.YELLOW)
             
         else :
-            Terminal.changeColor(Terminal.WHITE)
+            Terminal.change_color(Terminal.WHITE)
 
         Terminal.write(str(self.name))
 

@@ -23,18 +23,18 @@ class Menu:
         self.position = position
         pass
 
-    def addButton(self, _elements):
+    def add_button(self, elements):
         """Add an elements to the screen
         
         Arguments:
-            _elements {UI.element.Element}
+            elements {UI.element.Element}
         """
-        _elements.x += self.position[0]
-        _elements.y += self.position[1]
-        self.elements.append(_elements)
+        elements.x += self.position[0]
+        elements.y += self.position[1]
+        self.elements.append(elements)
         pass
 
-    def getElement(self, label):
+    def get_element(self, label):
         """Get an element in the menu
         
         Arguments:
@@ -43,23 +43,23 @@ class Menu:
         Returns:
             element.Element -- The element searched or None
         """
-        for _element in self.elements:
-            if _element.label == label:
-                return _element
+        for element in self.elements:
+            if element.label == label:
+                return element
         return None
 
-    def selectButton(self, label):
+    def select_button(self, label):
         """Select only a Button in the current menu
         
         Arguments:
             label {str} -- The label of the button to select
         """
-        for _element in self.elements:
-            if type(_element) is Button:
-                if _element.label == label :
-                    _element.select(True)
+        for element in self.elements:
+            if type(element) is Button:
+                if element.label == label :
+                    element.select(True)
                 else :
-                    _element.select(False)
+                    element.select(False)
 
     def show(self):
         """Display elements on the screen
@@ -68,5 +68,5 @@ class Menu:
             for background in self.background :
                 background.show(self.position)
             
-        for _element in self.elements:
-            _element.show()
+        for element in self.elements:
+            element.show()

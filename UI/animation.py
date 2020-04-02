@@ -10,6 +10,6 @@ class Animation:
         assert type(position) is list
 
         self.position = position
-        self.frames = File.readFrames(file_name)
+        self.frames = File.read_frames(file_name)
         
         pass
