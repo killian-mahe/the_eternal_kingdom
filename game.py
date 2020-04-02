@@ -35,16 +35,16 @@ class Game:
         self.monsters = []
         self.balls = []
 
-        self.lastTimeSpawnMonster = 0
-        self.spawnerFrequency = 0.5 # Monster/sec
+        self.last_time_spawn_monster = 0
+        self.spawner_frequency = 0.5 # Monster/sec
 
         self.settings = settings
 
-        self.currentMenu = None
+        self.current_menu = None
 
         pass
 
-    def addMenu(self, menus):
+    def add_menu(self, menus):
         """Add a menu to the list
         
         Arguments:
@@ -60,7 +60,7 @@ class Game:
 
         pass
 
-    def setMenu(self, label):
+    def set_menu(self, label):
         """Change the menu to current labelled menu
         
         Arguments:
@@ -68,19 +68,19 @@ class Game:
         """
         assert type(label) is str
         
-        self.currentMenu = self.menus[label]
+        self.current_menu = self.menus[label]
 
         pass
 
-    def resetMenu(self):
+    def reset_menu(self):
         """Reset the menu to None
         """
 
-        self.currentMenu = None
+        self.current_menu = None
         
         pass
 
-    def shootCannon(self):
+    def shoot_cannon(self):
         """Let the cannon shoot balls
         """
 
@@ -93,7 +93,7 @@ class Game:
         """Make elements live
         """
 
-        if self.currentMenu != None:
+        if self.current_menu != None:
             return
 
         screen_size = self.settings['screen_size']
@@ -110,18 +110,18 @@ class Game:
                 continue
 
         # Spawn Zombie
-        if time.time() - self.lastTimeSpawnMonster > 1/self.spawnerFrequency :
+        if time.time() - self.last_time_spawn_monster > 1/self.spawner_frequency :
             zombie = Zombie(self.settings['assets_folder']+"/monster_1.txt", 
                             [screen_size[0]-3, screen_size[1] - random.randint(1, 6)], random.randint(1, 3))
             self.monsters.append(zombie)
-            self.lastTimeSpawnMonster = time.time()
+            self.last_time_spawn_monster = time.time()
 
         # Live Monsters
         for monster in self.monsters:
             monster.live()
             for ball in self.balls :
-                if monster.isInCollision(ball.position):
-                    if monster.getDamages(ball.power):
+                if monster.is_in_collision(ball.position):
+                    if monster.get_damages(ball.power):
                         self.monsters.remove(monster)
                     self.balls.remove(ball)
         
@@ -131,8 +131,8 @@ class Game:
         """Display on the scrren
         """
 
-        if self.currentMenu != None:
-            self.currentMenu.show()
+        if self.current_menu != None:
+            self.current_menu.show()
         else :
             self.background.show()
             self.castle.show()
@@ -145,7 +145,7 @@ class Game:
 
         pass
 
-    def quitGame(self):
+    def quit_game(self):
         """Manage how the game quit
         """
 

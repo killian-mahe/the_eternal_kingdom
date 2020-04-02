@@ -41,15 +41,15 @@ settings = json.load(f)
 f.close()
 
 # Global variables
-timeStep = None
+time_step = None
 game = None
 
 def init() :
     """Initialize the game configuration
     """
-    global timeStep, settings, game
+    global time_step, settings, game
     
-    timeStep = 0.05
+    time_step = 0.05
 
     Terminal.init()
 
@@ -63,18 +63,18 @@ def init() :
 
     # Setting up home_screen menu
     home_screen = Menu("home_screen", [Background(settings['assets_folder'] + "/menu_1.txt"), castle])
-    home_screen.addButton(Button([94, 18], "start", "Lancer une partie", alignement="center"))
-    home_screen.addButton(Button([94, 20], "exit", "Quitter", alignement="center"))
+    home_screen.add_button(Button([94, 18], "start", "Lancer une partie", alignement="center"))
+    home_screen.add_button(Button([94, 20], "exit", "Quitter", alignement="center"))
     
     # Setting up pause_menu
     pause_menu = Menu("pause_menu", [Background(settings['assets_folder'] + "/pause_menu.txt")], position=[83, 19])
-    pause_menu.addButton(Button([14, 2], "continu", "Continuer", alignement="center"))
-    pause_menu.addButton(Button([15, 5], "quit", "Quitter", alignement="center"))
+    pause_menu.add_button(Button([14, 2], "continu", "Continuer", alignement="center"))
+    pause_menu.add_button(Button([15, 5], "quit", "Quitter", alignement="center"))
 
-    game.addMenu([home_screen, pause_menu])
+    game.add_menu([home_screen, pause_menu])
 
-    game.setMenu("home_screen")
-    game.currentMenu.selectButton("start")
+    game.set_menu("home_screen")
+    game.current_menu.selectButton("start")
 
 
     sys.stdout.flush()
@@ -86,51 +86,51 @@ def interact() :
     """Interaction with the player
     """
     global game
-    if Keyboard.isEvent():
+    if Keyboard.is_event():
 
-        menu = game.currentMenu
+        menu = game.current_menu
         if menu : # In a menu
             if menu.label == "home_screen":
-                if Keyboard.isPressed('z') :
+                if Keyboard.is_pressed('z') :
                     menu.selectButton("start")
-                if Keyboard.isPressed('s') :
+                if Keyboard.is_pressed('s') :
                     menu.selectButton("exit")
-                if Keyboard.isPressed('\n'):
-                    if menu.getElement("start").selected :
-                        game.resetMenu()
-                    elif menu.getElement("exit").selected :
-                        game.quitGame()
+                if Keyboard.is_pressed('\n'):
+                    if menu.get_element("start").selected :
+                        game.reset_menu()
+                    elif menu.get_element("exit").selected :
+                        game.quit_game()
 
             if menu.label == "pause_menu":
-                if Keyboard.isPressed('z') :
+                if Keyboard.is_pressed('z') :
                     menu.selectButton("continu")
-                if Keyboard.isPressed('s') :
+                if Keyboard.is_pressed('s') :
                     menu.selectButton("quit")
-                if Keyboard.isPressed('\n'):
-                    if menu.getElement("continu").selected :
-                        game.resetMenu()
-                    elif menu.getElement("quit").selected :
-                        game.quitGame()
+                if Keyboard.is_pressed('\n'):
+                    if menu.get_element("continu").selected :
+                        game.reset_menu()
+                    elif menu.get_element("quit").selected :
+                        game.quit_game()
         
         else :
-            if Keyboard.isPressed('\n'):
-                game.shootCannon()
+            if Keyboard.is_pressed('\n'):
+                game.shoot_cannon()
 
-            if Keyboard.isPressed('z'):
+            if Keyboard.is_pressed('z'):
                 game.cannon.angle = min(game.cannon.angle + 5, 90)
 
-            if Keyboard.isPressed('s'):
+            if Keyboard.is_pressed('s'):
                 game.cannon.angle = max(game.cannon.angle - 5, 0)
 
-            if Keyboard.isPressed('q'):
+            if Keyboard.is_pressed('q'):
                 game.cannon.force = max(game.cannon.force - 5, 5)
 
-            if Keyboard.isPressed('d'):
+            if Keyboard.is_pressed('d'):
                 game.cannon.force = min(game.cannon.force + 5, 50)
         
-            if Keyboard.isPressed('\033'): # ESC
-                game.setMenu("pause_menu")
-                game.currentMenu.selectButton("continu")
+            if Keyboard.is_pressed('\033'): # ESC
+                game.set_menu("pause_menu")
+                game.current_menu.selectButton("continu")
 
     return
 		
@@ -139,29 +139,29 @@ def interact() :
 def live():
     """Live loop
     """
-    global timeStep, game
+    global time_step, game
 
     game.live()
 
     return
 
-def quitGame():
+def quit_game():
     """Manage how the game end
     """
     global game
-    game.quitGame()
+    game.quit_game()
     pass
 
 
 def show() :
     """Manage the screen
     """
-    global timeStep, game
+    global time_step, game
 
     game.show()
     
     sys.stdout.flush()
-    Terminal.moveCursor([0, 0])
+    Terminal.move_cursor([0, 0])
     return
 
 
@@ -169,17 +169,17 @@ def show() :
 def run():
     """Simulation loop
     """
-    global timeStep
+    global time_step
 
-    lastTimeShow = 0
+    last_time_show = 0
 
     while (True):
         interact()
         live()
 
-        if(time.time()-lastTimeShow > timeStep):
+        if(time.time()-last_time_show > time_step):
             show()
-            lastTimeShow = time.time()
+            last_time_show = time.time()
         
     pass
 
@@ -189,7 +189,7 @@ if __name__ == "__main__":
     try :
         init()
         run()
-        quitGame()
+        quit_game()
     except KeyboardInterrupt:
-        quitGame()
+        quit_game()
     pass
