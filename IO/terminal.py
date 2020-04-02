@@ -4,7 +4,7 @@ import sys
 import termios
 import tty
 
-class Terminal():
+class Terminal:
     """A Terminal
     """
 
@@ -24,7 +24,7 @@ class Terminal():
     def init():
         """Init the terminal and set default settings
         """
-        Terminal.defaultSettings = termios.tcgetattr(sys.stdin)
+        Terminal.default_settings = termios.tcgetattr(sys.stdin)
         tty.setcbreak(sys.stdin.fileno())
         sys.stdout.write("\033[2J") # Clear terminal
         sys.stdout.write("\033[?25l") # Hide cursor
@@ -61,7 +61,7 @@ class Terminal():
         pass
 
     @staticmethod
-    def moveCursor(position) :
+    def move_cursor(position) :
         """Move the cursor to the given position
         
         Arguments:
@@ -74,7 +74,7 @@ class Terminal():
         pass
 
     @staticmethod
-    def changeColor(color):
+    def change_color(color):
         """Change the color of the terminal cursor
         
         Arguments:
@@ -83,7 +83,6 @@ class Terminal():
         assert type(color) is int
         sys.stdout.write("\033["+str(color)+"m")
         pass
-
 
     @staticmethod
     def reset():

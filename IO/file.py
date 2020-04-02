@@ -3,7 +3,7 @@
 class File(object):
 
     @staticmethod
-    def readAsArray(file_name):
+    def read_as_array(file_name):
         assert type(file_name) is str
 
         # Read the file
@@ -12,15 +12,15 @@ class File(object):
         f.close()
 
         # Transform string into list of lists
-        splitedTxt = txt.splitlines()
+        splited_txt = txt.splitlines()
         bg = list()
-        for line in splitedTxt :
+        for line in splited_txt :
             bg.append(list(line))
         
         return bg
 
     @staticmethod
-    def readFrames(file_name):
+    def read_frames(file_name):
         assert type(file_name) is str
 
         f = open(file_name, "r")
