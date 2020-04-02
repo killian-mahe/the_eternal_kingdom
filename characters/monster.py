@@ -29,21 +29,21 @@ class Monster:
         f.close()
 
         # Transform string info list of lists
-        splitedTxt = txt.splitlines()
+        splited_txt = txt.splitlines()
         self.model = list()
-        for line in splitedTxt :
+        for line in splited_txt :
             self.model.append(list(line))
 
         x, y = position
         self.position = [x, y-len(self.model)]
         self.speed = 3 # px/sec
-        self.lastTimeMove = 0
+        self.last_time_move = 0
 
         self.life = life
 
         pass
 
-    def isInCollision(self, ePosition):
+    def is_in_collision(self, ePosition):
         """Check if position is in collision with the monster
         
         Arguments:
@@ -60,7 +60,7 @@ class Monster:
         
         return False
 
-    def getDamages(self, damages):
+    def get_damages(self, damages):
         """Get damages and return if the monster is dead or not
         
         Arguments:
@@ -92,8 +92,8 @@ class Monster:
         for y in range(0,len(self.model)):
             for x in range(0,len(self.model[y])):
                 if self.model[y][x] != " ":
-                    Terminal.moveCursor([self.position[0] + x, self.position[1] + y])
-                    Terminal.changeColor(Terminal.WHITE)
+                    Terminal.move_cursor([self.position[0] + x, self.position[1] + y])
+                    Terminal.change_color(Terminal.WHITE)
                     
                     # Display
                     Terminal.write(self.model[y][x])

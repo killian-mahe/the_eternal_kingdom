@@ -19,7 +19,7 @@ class Castle:
         assert type(window_size) is list
 
         # Get background
-        self.bg = File.readAsArray(file_name)
+        self.bg = File.read_as_array(file_name)
 
         # Change the position of the Castle
         self.position = (2-1, window_size[1] - len(self.bg)-1)
@@ -34,7 +34,6 @@ class Castle:
         """
         return [self.bg, self.position]
 
-
     def show(self, offset=[0, 0]):
         """Display on the screen
         """
@@ -42,10 +41,10 @@ class Castle:
             for x in range(0,len(self.bg[y])):
 
                 # Display in white
-                Terminal.changeColor(Terminal.WHITE)
+                Terminal.change_color(Terminal.WHITE)
 
                 # Change cursor position
-                Terminal.moveCursor([x + self.position[0], y + self.position[1]])
+                Terminal.move_cursor([x + self.position[0], y + self.position[1]])
                 
                 # Display
                 Terminal.write(self.bg[y][x])

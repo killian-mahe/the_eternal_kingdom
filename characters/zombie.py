@@ -29,9 +29,9 @@ class Zombie(Monster):
         """Live method
         """
 
-        if time.time() - self.lastTimeMove > 1/self.speed :
+        if time.time() - self.last_time_move > 1/self.speed :
             self.position[0] -= 1
-            self.lastTimeMove = time.time()
+            self.last_time_move = time.time()
 
         pass
 

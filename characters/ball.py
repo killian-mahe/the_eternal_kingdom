@@ -23,13 +23,13 @@ class Ball(object):
         assert type(speed) is list
 
         # Initial parameters
-        self.initPosition = position
-        self.initSpeed = speed
+        self.init_position = position
+        self.init_speed = speed
 
         # Save create time
-        self.initTime = time.time()
+        self.init_time = time.time()
 
-        self.position = copy.copy(self.initPosition)
+        self.position = copy.copy(self.init_position)
 
         self.power = 1
         
@@ -40,11 +40,11 @@ class Ball(object):
         """
 
         # Compute the t instant for movement equations
-        t = round(time.time()-self.initTime, 3)
+        t = round(time.time()-self.init_time, 3)
 
         # Positional movement equations
-        self.position[0] = round((t*self.initSpeed[0]) + self.initPosition[0])
-        self.position[1] = round((0.5*Ball.g*math.pow(t, 2)) + (t*self.initSpeed[1]) + (self.initPosition[1]))
+        self.position[0] = round((t*self.init_speed[0]) + self.init_position[0])
+        self.position[1] = round((0.5*Ball.g*math.pow(t, 2)) + (t*self.init_speed[1]) + (self.init_position[1]))
 
         pass
 
@@ -52,8 +52,8 @@ class Ball(object):
         """Display on the screen
         """
 
-        Terminal.changeColor(Terminal.GREEN)
-        Terminal.moveCursor(self.position)
+        Terminal.change_color(Terminal.GREEN)
+        Terminal.move_cursor(self.position)
         Terminal.write("o")
         
         pass

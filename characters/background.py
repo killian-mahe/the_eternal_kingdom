@@ -17,7 +17,7 @@ class Background:
         assert type(file_name) is str
 
         # Read the file
-        self.bg = File.readAsArray(file_name)
+        self.bg = File.read_as_array(file_name)
 
         pass
 
@@ -30,11 +30,11 @@ class Background:
         assert type(file_name) is str
 
         # Read the file
-        self.bg = File.readAsArray(file_name)
+        self.bg = File.read_as_array(file_name)
 
         pass
 
-    def getChar(self, x, y):
+    def get_char(self, x, y):
         """Get the character at a given position
         
         Arguments:
@@ -46,7 +46,7 @@ class Background:
         """
         return self.bg[x][y]
 
-    def setChar(self, x, y, c):
+    def set_char(self, x, y, c):
         """Set character at a given position
         
         Arguments:
@@ -58,7 +58,7 @@ class Background:
 
         pass
 
-    def getArray(self):
+    def get_array(self):
         """Return the background as a list of lists
         
         Returns:
@@ -71,8 +71,8 @@ class Background:
         """
         for y in range(0,len(self.bg)):
             for x in range(0,len(self.bg[y])):
-                Terminal.moveCursor([offset[0]+x, offset[1]+y])
-                Terminal.changeColor(Terminal.WHITE)
+                Terminal.move_cursor([offset[0]+x, offset[1]+y])
+                Terminal.change_color(Terminal.WHITE)
                 
                 # Display
                 Terminal.write(self.bg[y][x])
