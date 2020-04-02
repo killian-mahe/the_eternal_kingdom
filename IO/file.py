@@ -18,3 +18,22 @@ class File(object):
             bg.append(list(line))
         
         return bg
+
+    @staticmethod
+    def readFrames(file_name):
+        assert type(file_name) is str
+
+        f = open(file_name, "r")
+        txt = f.read()
+        f.close
+
+        animation = list()
+
+        frames = txt.split("frame\n")
+        
+        for frame in frames:
+            animation.append(frame.split("\n"))
+
+        return animation
+
+    pass
