@@ -19,3 +19,4 @@ __version__ = '0.0.1'
 
 from .terminal import Terminal
 from .keyboard import Keyboard
+from .file import File
