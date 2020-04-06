@@ -28,28 +28,28 @@ class Animation:
         self.frequency = frequency # frame/sec
         self.current_time = 0
         self.current_frame = 0
-        self.state = False
+        self.state = 0 # 0 : Stop | 1 : Pause | 2 : Play
         
         pass
 
     def start(self):
         """Start or resume animation
         """
-        self.state = True
+        self.state = 2
 
         pass
 
     def pause(self):
         """Pause animaation
         """
-        self.state = False
+        self.state = 1
 
         pass
 
     def stop(self):
         """Stop and reset animation
         """
-        self.state = False
+        self.state = 0
         self.current_frame = 0
         self.current_time = 0
         
@@ -58,10 +58,10 @@ class Animation:
     def show(self):
         """Display animation on screen
         """
-        if not self.state :
+        if self.state == 0 :
             return
 
-        if time.time() - self.current_time > 1/self.frequency:
+        if self.state == 2 and time.time() - self.current_time > 1/self.frequency:
         
             if self.current_frame == len(self.frames) - 1 :
                 self.stop()
