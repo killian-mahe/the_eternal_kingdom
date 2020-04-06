@@ -117,6 +117,9 @@ class Game:
         else:
             self.current_level += 1
             self.spawner_frequency = self.get_current_level()['spawner_frequency']
+            level_up_animation = Animation(self.settings['assets_folder']+"/level_up.txt", [83, 19], "level_up", color=Terminal.YELLOW)
+            level_up_animation.start()
+            self.add_animation(level_up_animation)
         pass
 
     def live(self):

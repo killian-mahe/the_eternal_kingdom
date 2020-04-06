@@ -19,12 +19,7 @@ __version__ = '0.0.7'
 
 # Standard Imports
 import sys
-import os
 import time
-import select
-import tty
-import termios
-import random
 import json
 
 # Package Imports
@@ -83,8 +78,6 @@ def init() :
     sys.stdout.flush()
     return
 
-
-
 def interact() :
     """Interaction with the player
     """
@@ -137,8 +130,6 @@ def interact() :
 
     return
 		
-
-
 def live():
     """Live loop
     """
@@ -155,7 +146,6 @@ def quit_game():
     game.quit_game()
     pass
 
-
 def show() :
     """Manage the screen
     """
@@ -165,8 +155,6 @@ def show() :
     sys.stdout.flush()
     Terminal.move_cursor([0, 0])
     return
-
-
 
 def run():
     """Simulation loop
