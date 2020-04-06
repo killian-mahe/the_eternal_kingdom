@@ -5,7 +5,7 @@ import random
 import time
 
 # Package imports
-from IO import Terminal
+from IO import Terminal, File
 
 
 class Monster:
@@ -24,15 +24,7 @@ class Monster:
         assert type(position) is list
 
         # Read the file
-        f = open(monster_model_file, "r")
-        txt = f.read()
-        f.close()
-
-        # Transform string info list of lists
-        splited_txt = txt.splitlines()
-        self.model = list()
-        for line in splited_txt :
-            self.model.append(list(line))
+        self.model = File.read_as_array(monster_model_file)
 
         x, y = position
         self.position = [x, y-len(self.model)]
