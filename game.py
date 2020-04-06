@@ -139,6 +139,11 @@ class Game:
                         self.add_animation(death_animation)
                         self.monsters.remove(monster)
                     self.balls.remove(ball)
+
+            if self.castle.is_in_collision(monster.position):
+                if self.castle.get_damages(monster.life):
+                    pass
+                self.monsters.remove(monster)
         
         pass
 

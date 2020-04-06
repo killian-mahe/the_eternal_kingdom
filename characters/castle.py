@@ -24,6 +24,8 @@ class Castle:
         # Change the position of the Castle
         self.position = (2-1, window_size[1] - len(self.bg)-1)
 
+        self.life = 100
+
         pass
 
     def getArray(self):
@@ -33,6 +35,42 @@ class Castle:
             list
         """
         return [self.bg, self.position]
+
+    def get_damages(self, damages):
+        """Get damages and return if the monster is dead or not
+        
+        Arguments:
+            damages {int} -- Damages the monster receive
+        
+        Returns:
+            bool -- Wether monster is dead or not
+        """
+        assert type(damages) is int
+
+        self.life -= damages
+
+        if self.life <= 0:
+            return True
+
+        return False
+
+    def is_in_collision(self, ePosition):
+        """Check if a given position is in collision with the castle
+        
+        Arguments:
+            ePosition {list} -- 2D position
+        
+        Returns:
+            bool
+        """
+        assert type(ePosition) is list
+
+        x, y = ePosition
+        if x < (self.position[0] + len(self.bg[-1])):
+            if y > self.position[1]:
+                return True
+
+        return False
 
     def show(self, offset=[0, 0]):
         """Display on the screen
@@ -48,6 +86,8 @@ class Castle:
                 
                 # Display
                 Terminal.write(self.bg[y][x])
+
+        Terminal.write("Castle life :" + str(self.life), [1, 1], Terminal.RED)
 
         pass
 
