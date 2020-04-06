@@ -71,7 +71,10 @@ def init() :
     pause_menu.add_button(Button([14, 2], "continu", "Continuer", alignement="center"))
     pause_menu.add_button(Button([15, 5], "quit", "Quitter", alignement="center"))
 
-    game.add_menu([home_screen, pause_menu])
+    # Setting up win_menu
+    win_menu = Menu("win_menu", [Background(settings['assets_folder'] + "/win_menu.txt")])
+
+    game.add_menu([home_screen, pause_menu, win_menu])
 
     game.set_menu("home_screen")
     game.current_menu.select_button("start")

@@ -1,4 +1,18 @@
 {
     "assets_folder": "assets",
-    "screen_size": [194, 52]
+    "screen_size": [194, 52],
+    "levels": [
+        {
+            "spawner_frequency": 0.2,
+            "min_monster_level": 1,
+            "max_monster_level": 3,
+            "score": 10
+        },
+        {
+            "spawner_frequency": 0.25,
+            "min_monster_level": 2,
+            "max_monster_level": 5,
+            "score": 40
+        }
+    ]
 }

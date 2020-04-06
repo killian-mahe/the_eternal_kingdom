@@ -32,6 +32,7 @@ class Monster:
         self.last_time_move = 0
 
         self.life = life
+        self.score = life
 
         pass
 

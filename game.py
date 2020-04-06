@@ -11,6 +11,7 @@ from IO import Terminal
 
 # Internal imports
 from characters import Castle, Background, Cannon, Zombie
+from player import Player
 
 class Game:
 
@@ -36,8 +37,13 @@ class Game:
         self.monsters = []
         self.balls = []
 
+        self.levels = settings['levels']
+        self.current_level = 0
+
         self.last_time_spawn_monster = 0
-        self.spawner_frequency = 0.5 # Monster/sec
+        self.spawner_frequency = self.get_current_level()['spawner_frequency'] # Monster/sec
+
+        self.player = Player()
 
         self.settings = settings
 
@@ -101,6 +107,18 @@ class Game:
 
         pass
 
+    def get_current_level(self):
+        return self.levels[self.current_level]
+
+    def level_up(self):
+        
+        if self.current_level +1 == len(self.levels):
+            self.set_menu("win_menu")
+        else:
+            self.current_level += 1
+            self.spawner_frequency = self.get_current_level()['spawner_frequency']
+        pass
+
     def live(self):
         """Make elements live
         """
@@ -124,7 +142,8 @@ class Game:
         # Spawn Zombie
         if time.time() - self.last_time_spawn_monster > 1/self.spawner_frequency :
             zombie = Zombie(self.settings['assets_folder']+"/monster_1.txt", 
-                            [screen_size[0]-3, screen_size[1] - random.randint(1, 6)], random.randint(1, 3))
+                            [screen_size[0]-3, screen_size[1] - random.randint(1, 6)],
+                            random.randint(self.get_current_level()["min_monster_level"], self.get_current_level()["max_monster_level"]))
             self.monsters.append(zombie)
             self.last_time_spawn_monster = time.time()
 
@@ -137,6 +156,7 @@ class Game:
                         death_animation = Animation(self.settings['assets_folder']+"/death_animation.txt", monster.position, "death_animation", frequency=6, color=Terminal.RED)
                         death_animation.start()
                         self.add_animation(death_animation)
+                        self.player.add_score(monster.score)
                         self.monsters.remove(monster)
                     self.balls.remove(ball)
 
@@ -144,6 +164,11 @@ class Game:
                 if self.castle.get_damages(monster.life):
                     pass
                 self.monsters.remove(monster)
+
+        # Live Player
+        if self.player.score >= self.get_current_level()["score"]:
+            self.level_up()
+            pass
         
         pass
 
@@ -165,6 +190,8 @@ class Game:
             
             for animation in self.animations:
                 animation.show()
+
+        Terminal.write("Player score : "+str(self.player.score), [1, 2], Terminal.BLUE)
 
         pass
 
