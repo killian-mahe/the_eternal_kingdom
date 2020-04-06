@@ -20,3 +20,4 @@ __version__ = '0.0.1'
 from .button import Button
 from .menu import Menu
 from .animation import Animation
+from .image import Image
