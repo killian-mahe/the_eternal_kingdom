@@ -169,6 +169,12 @@ class Game:
         if self.player.score >= self.get_current_level()["score"]:
             self.level_up()
             pass
+
+        # Animation garbage
+        for animation in self.animations:
+            if animation.is_finished():
+                self.animations.remove(animation)
+                pass
         
         pass
 
@@ -192,6 +198,7 @@ class Game:
                 animation.show()
 
         Terminal.write("Player score : "+str(self.player.score), [1, 2], Terminal.BLUE)
+        Terminal.write("Animations length : "+str(len(self.animations)), [1, 3], Terminal.BLUE)
 
         pass
 

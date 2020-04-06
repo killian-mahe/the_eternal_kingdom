@@ -47,6 +47,14 @@ class Animation:
 
         pass
 
+    def is_finished(self):
+        if self.state == 0:
+            return True
+        else: 
+            return False
+
+        pass
+
     def stop(self):
         """Stop and reset animation
         """
