@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from UI import Button
-from IO import Keyboard
 from characters import Background
 import copy
 import sys

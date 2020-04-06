@@ -72,7 +72,7 @@ class Animation:
             
         for y in range(0, len(self.frames[self.current_frame])):
             for x in range(0, len(self.frames[self.current_frame][y])):
-                Terminal.write(self.frames[self.current_frame][y][x], [x, y], Terminal.GREEN)
+                Terminal.write(self.frames[self.current_frame][y][x], [x + self.position[0], y + self.position[1]], Terminal.GREEN)
             
         pass
 

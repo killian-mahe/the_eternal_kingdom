@@ -112,7 +112,7 @@ def interact() :
                     elif menu.get_element("quit").selected :
                         game.quit_game()
         
-        else :
+        else :            
             if Keyboard.is_pressed('\n'):
                 game.shoot_cannon()
 
@@ -156,10 +156,9 @@ def quit_game():
 def show() :
     """Manage the screen
     """
-    global time_step, game
+    global game
 
     game.show()
-    
     sys.stdout.flush()
     Terminal.move_cursor([0, 0])
     return

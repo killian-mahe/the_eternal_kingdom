@@ -6,7 +6,7 @@ import random
 import time
 
 # Package imports
-from UI import Menu
+from UI import Menu, Animation
 from IO import Terminal
 
 # Internal imports
@@ -32,6 +32,7 @@ class Game:
         self.castle = _castle
         self.cannon = cannon
         self.menus = {}
+        self.animations = []
         self.monsters = []
         self.balls = []
 
@@ -57,6 +58,17 @@ class Game:
                 self.menus[menu.label] = menu
         else :
             self.menus[menus.label] = menus
+
+        pass
+
+    def add_animation(self, animation):
+        """Add animations to the game
+        
+        Arguments:
+            animation {Animation}
+        """
+        assert type(animation) is Animation
+        self.animations.append(animation)
 
         pass
 
@@ -122,6 +134,9 @@ class Game:
             for ball in self.balls :
                 if monster.is_in_collision(ball.position):
                     if monster.get_damages(ball.power):
+                        death_animation = Animation(self.settings['assets_folder']+"/death_animation.txt", monster.position, "death_animation", 4)
+                        death_animation.start()
+                        self.add_animation(death_animation)
                         self.monsters.remove(monster)
                     self.balls.remove(ball)
         
@@ -142,6 +157,9 @@ class Game:
 
             for monster in self.monsters:
                 monster.show()
+            
+            for animation in self.animations:
+                animation.show()
 
         pass
 
