@@ -69,3 +69,5 @@ class Menu:
             
         for element in self.elements:
             element.show()
+
+    pass

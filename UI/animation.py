@@ -8,7 +8,7 @@ from IO import Terminal, File
 
 class Animation:
 
-    def __init__(self, file_name, position, label, frequency=2):
+    def __init__(self, file_name, position, label, frequency=2, color=Terminal.GREEN):
         """Create an instance of Animation
         
         Arguments:
@@ -29,6 +29,7 @@ class Animation:
         self.current_time = 0
         self.current_frame = 0
         self.state = 0 # 0 : Stop | 1 : Pause | 2 : Play
+        self.color = color
         
         pass
 
@@ -72,7 +73,7 @@ class Animation:
             
         for y in range(0, len(self.frames[self.current_frame])):
             for x in range(0, len(self.frames[self.current_frame][y])):
-                Terminal.write(self.frames[self.current_frame][y][x], [x + self.position[0], y + self.position[1]], Terminal.GREEN)
+                Terminal.write(self.frames[self.current_frame][y][x], [x + self.position[0], y + self.position[1]], self.color)
             
         pass
 
