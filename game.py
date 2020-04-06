@@ -6,7 +6,7 @@ import random
 import time
 
 # Package imports
-from UI import Menu, Animation
+from UI import Menu, Animation, Image
 from IO import Terminal
 
 # Internal imports
@@ -43,9 +43,13 @@ class Game:
         self.last_time_spawn_monster = 0
         self.spawner_frequency = self.get_current_level()['spawner_frequency'] # Monster/sec
 
+        self.game_status_window = Image(settings["assets_folder"]+"/game_status.txt")
+
         self.player = Player()
 
         self.settings = settings
+
+        self.max_balls = 10
 
         self.current_menu = None
 
@@ -102,7 +106,7 @@ class Game:
         """Let the cannon shoot balls
         """
 
-        if len(self.balls) < 10 :
+        if len(self.balls) < self.max_balls :
             self.balls.append(self.cannon.shoot())
 
         pass
@@ -199,9 +203,13 @@ class Game:
             
             for animation in self.animations:
                 animation.show()
+            
+            self.game_status_window.show()
 
-        Terminal.write("Player score : "+str(self.player.score), [1, 2], Terminal.BLUE)
-        Terminal.write("Animations length : "+str(len(self.animations)), [1, 3], Terminal.BLUE)
+            Terminal.write(str(self.current_level +1 ), [25, 3], Terminal.YELLOW)
+            Terminal.write(str(self.player.score), [35 - int(len(str(self.player.score))/2), 3], Terminal.YELLOW)
+            Terminal.write("■"*(self.max_balls-len(self.balls)), [5, 2], Terminal.GREEN)
+            Terminal.write("■"*int(self.castle.life/10), [5, 4], Terminal.RED)
 
         pass
 

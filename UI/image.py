@@ -28,7 +28,7 @@ class Image:
         """Display image on screen
         """
         for y in range(0, len(self.content)):
-            for x in range(0, len(y)):
+            for x in range(0, len(self.content[y])):
                 Terminal.write(self.content[y][x], [self.position[0] + x, self.position[1] + y], self.color)
         
         pass
