@@ -134,7 +134,7 @@ class Game:
             for ball in self.balls :
                 if monster.is_in_collision(ball.position):
                     if monster.get_damages(ball.power):
-                        death_animation = Animation(self.settings['assets_folder']+"/death_animation.txt", monster.position, "death_animation", 4)
+                        death_animation = Animation(self.settings['assets_folder']+"/death_animation.txt", monster.position, "death_animation", 6)
                         death_animation.start()
                         self.add_animation(death_animation)
                         self.monsters.remove(monster)
