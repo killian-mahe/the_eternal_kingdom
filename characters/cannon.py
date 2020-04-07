@@ -35,9 +35,21 @@ class Cannon(object):
         vy = round(math.sin(math.radians(-self.angle)) * self.force, 3)
         return Ball(self.position, [vx, vy])
 
-    def show(self):
+    def show(self, position_range):
         """Display the cannon on the screen
         """
+        assert type(position_range) is list
+        x_range, y_range = position_range
+        
+        simulated_ball = self.shoot()
+
+        positions = simulated_ball.simulate(x_range)
+
+        for position in positions :
+            x, y = position
+            if y > min(y_range) and y < max(y_range) and not x%5:
+                Terminal.write("o", position, Terminal.MAGENTA)
+
         pass
 
     pass

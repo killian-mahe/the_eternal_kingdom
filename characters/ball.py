@@ -48,6 +48,17 @@ class Ball(object):
 
         pass
 
+    def simulate(self, x_list):
+        assert type(x_list) is list
+        positions = list()
+        for x in x_list:
+            a = (x - self.init_position[0])/(self.init_speed[0])
+            y = round((0.5*Ball.g*math.pow(a, 2)) + (a*self.init_speed[1]) + (self.init_position[1]))
+
+            positions.append([x, y])
+
+        return positions
+    
     def show(self):
         """Display on the screen
         """

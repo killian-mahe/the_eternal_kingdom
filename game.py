@@ -121,7 +121,7 @@ class Game:
         else:
             self.current_level += 1
             self.spawner_frequency = self.get_current_level()['spawner_frequency']
-            level_up_animation = Animation(self.settings['assets_folder']+"/level_up.txt", [83, 19], "level_up", color=Terminal.YELLOW)
+            level_up_animation = Animation(self.settings['assets_folder']+"/level_up.txt", [83, 19], "level_up", frequency=6,color=Terminal.YELLOW)
             level_up_animation.start()
             self.add_animation(level_up_animation)
         pass
@@ -200,6 +200,9 @@ class Game:
 
             for monster in self.monsters:
                 monster.show()
+
+            self.cannon.show([list(range(self.cannon.position[0], self.settings['screen_size'][0])),
+                              list(range(0, self.settings['screen_size'][1]))])
             
             for animation in self.animations:
                 animation.show()

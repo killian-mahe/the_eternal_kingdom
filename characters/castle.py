@@ -87,8 +87,6 @@ class Castle:
                 # Display
                 Terminal.write(self.bg[y][x])
 
-        Terminal.write("Castle life :" + str(self.life), [1, 1], Terminal.RED)
-
         pass
 
     pass

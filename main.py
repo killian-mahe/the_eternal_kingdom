@@ -113,16 +113,16 @@ def interact() :
                 game.shoot_cannon()
 
             if Keyboard.is_pressed('z'):
-                game.cannon.angle = min(game.cannon.angle + 5, 90)
+                game.cannon.angle = min(game.cannon.angle + 1, 90)
 
             if Keyboard.is_pressed('s'):
-                game.cannon.angle = max(game.cannon.angle - 5, 0)
+                game.cannon.angle = max(game.cannon.angle - 1, 0)
 
             if Keyboard.is_pressed('q'):
-                game.cannon.force = max(game.cannon.force - 5, 5)
+                game.cannon.force = max(game.cannon.force - 1, 5)
 
             if Keyboard.is_pressed('d'):
-                game.cannon.force = min(game.cannon.force + 5, 50)
+                game.cannon.force = min(game.cannon.force + 1, 50)
         
             if Keyboard.is_pressed('\033'): # ESC
                 game.set_menu("pause_menu")
