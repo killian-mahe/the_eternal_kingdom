@@ -112,10 +112,17 @@ class Game:
         pass
 
     def get_current_level(self):
+        """Get the current level
+        
+        Returns:
+            dict -- Current level settings
+        """
         return self.levels[self.current_level]
 
     def level_up(self):
-        
+        """Level up
+        """
+
         if self.current_level +1 == len(self.levels):
             self.set_menu("win_menu")
         else:
@@ -195,21 +202,25 @@ class Game:
         else :
             self.background.show()
             self.castle.show()
+
+            # Display balls
             for ball in self.balls:
                 if ball.position[1] > 0:
                     ball.show()
 
+            # Display monsters
             for monster in self.monsters:
                 monster.show()
 
+            # Display ball path simulation
             self.cannon.show([list(range(self.cannon.position[0], self.settings['screen_size'][0])),
                               list(range(0, self.settings['screen_size'][1]))])
             
             for animation in self.animations:
                 animation.show()
             
+            # Display Game informations
             self.game_status_window.show()
-
             Terminal.write(str(self.current_level +1 ), [25, 3], Terminal.YELLOW)
             Terminal.write(str(self.player.score), [35 - int(len(str(self.player.score))/2), 3], Terminal.YELLOW)
             Terminal.write("■"*(self.max_balls-len(self.balls)), [5, 2], Terminal.GREEN)

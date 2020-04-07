@@ -3,6 +3,8 @@
 from IO import File, Terminal
 
 class Image:
+    """An Image represent a background to display on the screen
+    """
 
     def __init__(self, file_name, position=[0,0], color=Terminal.WHITE):
         """Create an instance of Image

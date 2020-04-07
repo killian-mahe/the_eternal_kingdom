@@ -36,7 +36,10 @@ class Cannon(object):
         return Ball(self.position, [vx, vy])
 
     def show(self, position_range):
-        """Display the cannon on the screen
+        """Display simulation on screen
+        
+        Arguments:
+            position_range {list} -- 2D window size to display simulation
         """
         assert type(position_range) is list
         x_range, y_range = position_range

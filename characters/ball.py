@@ -49,6 +49,14 @@ class Ball(object):
         pass
 
     def simulate(self, x_list):
+        """Simulate ball mouvement
+        
+        Arguments:
+            x_list {list} -- X range
+        
+        Returns:
+            list -- List of 2D position in the x range given
+        """
         assert type(x_list) is list
         positions = list()
         for x in x_list:

@@ -19,6 +19,7 @@ class Monster:
         
         Keyword Arguments:
             life {int} -- Monster life (default: {1})
+            speed {int} -- Monster speed in px/sec (default: {3})
         """
         assert type(monster_model_file) is str
         assert type(position) is list

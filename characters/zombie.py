@@ -20,6 +20,7 @@ class Zombie(Monster):
 
         Keyword Arguments:
             life {int} -- Monster life (default: {1})
+            speed {int} -- Monster speed in px/sec (default: {3})
         """
         super(Zombie, self).__init__(monster_model_file, position, life, speed)
 

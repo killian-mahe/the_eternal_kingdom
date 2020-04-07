@@ -18,6 +18,7 @@ class Animation:
         
         Keyword Arguments:
             frequency {int} -- Frequency (frame/sec) (default: {2})
+            label {int} -- Animation color (default: {Terminal.GREEN})
         """
         assert type(file_name) is str
         assert type(position) is list
@@ -48,6 +49,11 @@ class Animation:
         pass
 
     def is_finished(self):
+        """Return wether an application is finished or not
+        
+        Returns:
+            bool
+        """
         if self.state == 0:
             return True
         else: 
