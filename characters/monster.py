@@ -10,7 +10,7 @@ from IO import Terminal, File
 
 class Monster:
     
-    def __init__(self, monster_model_file, position, life=1):
+    def __init__(self, monster_model_file, position, life=1, speed=3):
         """Create an instance of Monster
         
         Arguments:

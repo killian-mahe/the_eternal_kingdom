@@ -4,15 +4,24 @@
     "levels": [
         {
             "spawner_frequency": 0.2,
+            "monster_speed": 3,
             "min_monster_level": 1,
             "max_monster_level": 3,
             "score": 10
         },
         {
-            "spawner_frequency": 0.25,
+            "spawner_frequency": 0.4,
+            "monster_speed": 5,
             "min_monster_level": 2,
             "max_monster_level": 5,
-            "score": 40
+            "score": 60
+        },
+        {
+            "spawner_frequency": 0.5,
+            "monster_speed": 7,
+            "min_monster_level": 5,
+            "max_monster_level": 10,
+            "score": 200
         }
     ]
 }

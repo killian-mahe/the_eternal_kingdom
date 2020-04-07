@@ -11,7 +11,7 @@ from characters import Monster
 
 class Zombie(Monster):
 
-    def __init__(self, monster_model_file, position, life=1):
+    def __init__(self, monster_model_file, position, life=1, speed=3):
         """Create an instance of Zombie
         
         Arguments:
@@ -21,7 +21,7 @@ class Zombie(Monster):
         Keyword Arguments:
             life {int} -- Monster life (default: {1})
         """
-        super(Zombie, self).__init__(monster_model_file, position, life)
+        super(Zombie, self).__init__(monster_model_file, position, life, speed)
 
         pass
 
