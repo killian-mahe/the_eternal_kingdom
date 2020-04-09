@@ -153,6 +153,9 @@ class Game:
                 self.balls.remove(ball)
                 continue
 
+        if self.castle.life <= 0:
+            self.set_menu("loose_menu")
+
         # Spawn Zombie
         if time.time() - self.last_time_spawn_monster > 1/self.spawner_frequency :
             zombie = Zombie(self.settings['assets_folder']+"/monster_1.txt", 

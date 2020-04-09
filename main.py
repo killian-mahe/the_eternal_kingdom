@@ -69,7 +69,10 @@ def init() :
     # Setting up win_menu
     win_menu = Menu("win_menu", [Background(settings['assets_folder'] + "/win_menu.txt")])
 
-    game.add_menu([home_screen, pause_menu, win_menu])
+    # Settings up loose_menu
+    loose_menu = Menu("loose_menu", [Background(settings['assets_folder'] + "/loose_menu.txt")])
+
+    game.add_menu([home_screen, pause_menu, win_menu, loose_menu])
 
     game.set_menu("home_screen")
     game.current_menu.select_button("start")
@@ -113,16 +116,16 @@ def interact() :
                 game.shoot_cannon()
 
             if Keyboard.is_pressed('z'):
-                game.cannon.angle = min(game.cannon.angle + 1, 90)
+                game.cannon.angle = min(game.cannon.angle + 0.5, 90)
 
             if Keyboard.is_pressed('s'):
-                game.cannon.angle = max(game.cannon.angle - 1, 0)
+                game.cannon.angle = max(game.cannon.angle - 0.5, 0)
 
             if Keyboard.is_pressed('q'):
-                game.cannon.force = max(game.cannon.force - 1, 5)
+                game.cannon.force = max(game.cannon.force - 0.5, 5)
 
             if Keyboard.is_pressed('d'):
-                game.cannon.force = min(game.cannon.force + 1, 50)
+                game.cannon.force = min(game.cannon.force + 0.5, 50)
         
             if Keyboard.is_pressed('\033'): # ESC
                 game.set_menu("pause_menu")
