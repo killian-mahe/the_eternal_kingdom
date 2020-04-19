@@ -139,7 +139,8 @@ class Game:
     def loose(self):
         """Loose the game
         """
-        loose_animation = Animation(self.settings['assets_folder'] + "/level_up.txt", [83, 19], "loose", frequency=6, color=Terminal.RED)
+        self.state = False
+        loose_animation = Animation(self.settings['assets_folder'] + "/loose.txt", [83, 19], "loose", frequency=6, color=Terminal.RED)
         loose_animation.start()
         self.add_animation(loose_animation)
 
@@ -214,7 +215,9 @@ class Game:
 
         if self.current_menu != None:
             self.current_menu.show()
-        elif self.state :
+            return       
+
+        if self.state :
             self.background.show()
             self.castle.show()
 
@@ -230,9 +233,7 @@ class Game:
             # Display ball path simulation
             self.cannon.show([list(range(self.cannon.position[0], self.settings['screen_size'][0])),
                               list(range(0, self.settings['screen_size'][1]))])
-            
-            for animation in self.animations:
-                animation.show()
+        
             
             # Display Game informations
             self.game_status_window.show()
@@ -240,6 +241,9 @@ class Game:
             Terminal.write(str(self.player.score), [35 - int(len(str(self.player.score))/2), 3], Terminal.YELLOW)
             Terminal.write("■"*(self.max_balls-len(self.balls)), [5, 2], Terminal.GREEN)
             Terminal.write("■"*int(self.castle.life/10), [5, 4], Terminal.RED)
+
+        for animation in self.animations:
+            animation.show()
 
         pass
 
