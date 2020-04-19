@@ -25,10 +25,42 @@ class Terminal:
         """Init the terminal and set default settings
         """
         Terminal.default_settings = termios.tcgetattr(sys.stdin)
-        tty.setcbreak(sys.stdin.fileno())
-        sys.stdout.write("\033[2J") # Clear terminal
-        sys.stdout.write("\033[?25l") # Hide cursor
+        Terminal.cbreak_input_mode()
+        Terminal.clear()
+        Terminal.hide_cursor()
         sys.stdout.write("\033[40m\033[1;34m") # Change bakcground color and characters color
+        pass
+
+    @staticmethod
+    def raw_input_mode():
+        """Set the terminal input mode to raw
+        """
+        tty.setraw(sys.stdin.fileno())
+        
+        pass
+
+    @staticmethod
+    def cbreak_input_mode():
+        """Set the terminal input mode to cbreak
+        """
+        tty.setcbreak(sys.stdin.fileno())
+
+        pass
+
+    @staticmethod
+    def hide_cursor():
+        """Hide the cursor
+        """
+        sys.stdout.write("\033[?25l")
+
+        pass
+
+    @staticmethod
+    def show_cursor():
+        """Show the cursor
+        """
+        sys.stdout.write("\033[?25h")
+
         pass
 
     @staticmethod
