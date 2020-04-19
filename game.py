@@ -36,6 +36,7 @@ class Game:
         self.animations = []
         self.monsters = []
         self.balls = []
+        self.state = False # Pause
 
         self.levels = settings['levels']
         self.current_level = 0
@@ -90,6 +91,7 @@ class Game:
         """
         assert type(label) is str
         
+        self.state = False
         self.current_menu = self.menus[label]
 
         pass
@@ -98,6 +100,7 @@ class Game:
         """Reset the menu to None
         """
 
+        self.state = True
         self.current_menu = None
         
         pass
@@ -136,16 +139,17 @@ class Game:
     def loose(self):
         """Loose the game
         """
-        loose_animation : Animation(self.settings['assets_folder'] + "/level_up.txt", [83, 19], "loose", frequency=6, color=Terminal.RED)
+        loose_animation = Animation(self.settings['assets_folder'] + "/level_up.txt", [83, 19], "loose", frequency=6, color=Terminal.RED)
         loose_animation.start()
         self.add_animation(loose_animation)
+
         pass
 
     def live(self):
         """Make elements live
         """
 
-        if self.current_menu != None:
+        if not self.state:
             return
 
         screen_size = self.settings['screen_size']
@@ -162,7 +166,7 @@ class Game:
                 continue
 
         if self.castle.life <= 0:
-            self.set_menu("loose_menu")
+            self.loose()
 
         # Spawn Zombie
         if time.time() - self.last_time_spawn_monster > 1/self.spawner_frequency :
@@ -210,7 +214,7 @@ class Game:
 
         if self.current_menu != None:
             self.current_menu.show()
-        else :
+        elif self.state :
             self.background.show()
             self.castle.show()
 
