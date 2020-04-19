@@ -133,6 +133,14 @@ class Game:
             self.add_animation(level_up_animation)
         pass
 
+    def loose(self):
+        """Loose the game
+        """
+        loose_animation : Animation(self.settings['assets_folder'] + "/level_up.txt", [83, 19], "loose", frequency=6, color=Terminal.RED)
+        loose_animation.start()
+        self.add_animation(loose_animation)
+        pass
+
     def live(self):
         """Make elements live
         """
